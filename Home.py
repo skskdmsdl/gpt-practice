@@ -14,3 +14,5 @@ st.write("hello")
 
 st.write([1, 2, 3, 4, 5])
 
+st.write({"x": 1})
+
