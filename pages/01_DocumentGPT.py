@@ -8,13 +8,15 @@ st.set_page_config(
 
 st.title("Document GTP")
 
-messages = []
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
+
+st.write(st.session_state["messages"])
 
 def send_message(message, role):
     with st.chat_message(role):
         st.write(message)
-        messages.append({"message":message, "role":role})
-    st.write(messages)
+        st.session_state["messages"].append({"message":message, "role":role})
 
 message = st.chat_input("Send a message to the ai")
 
