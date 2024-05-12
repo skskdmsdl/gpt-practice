@@ -26,3 +26,6 @@ if message:
     send_message(message, "human")
     time.sleep(2)
     send_message(f"You said: {message}", "ai")
+
+    with st.sidebar:
+        st.write(st.session_state)
