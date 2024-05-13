@@ -6,7 +6,7 @@ st.set_page_config(
     page_icon="🦠"
 )
 
-st.title("Document GTP")
+st.title("DocumentGTP")
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
