@@ -30,3 +30,13 @@ def embed_file(file):
     retriever = vectorstore.as_retriever()
     return retriever
 
+st.title("DocumentGPT")
+
+st.markdown(
+    """
+Welcome!
+            
+Use this chatbot to ask questions to an AI about your files!
+"""
+)
+
