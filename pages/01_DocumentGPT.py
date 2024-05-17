@@ -44,3 +44,9 @@ file = st.file_uploader(
     "Upload a .txt .pdf or .docx file",
     type=["pdf", "txt", "docx"],
 )
+
+if file:
+    retriever = embed_file(file)
+    s = retriever.invoke("winston")
+    s
+    
