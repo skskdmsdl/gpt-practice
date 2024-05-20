@@ -45,7 +45,8 @@ file = st.file_uploader(
 )
 
 if file:
-    retriever = embed_file(file)
-    s = retriever.invoke("winston")
-    s
+    st.write(file)
+    # retriever = embed_file(file)
+    # s = retriever.invoke("winston")
+    # s
     
