@@ -49,6 +49,8 @@ if file:
     file_content = file.read()
     file_path = f"./.cache/files/{file.name}"
     st.write(file_content, file_path)
+    with open(file_path, "wb") as f:
+        f.write(file_content)
     # retriever = embed_file(file)
     # s = retriever.invoke("winston")
     # s
