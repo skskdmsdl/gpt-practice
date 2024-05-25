@@ -1,2 +1,2 @@
 ## Practice GPT
-study lang chain 
+Study Large Language Model
