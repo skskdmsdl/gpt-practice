@@ -10,6 +10,7 @@ st.set_page_config(
     page_icon="🦠"
 )
 
+@st.cache_data(show_spinner="Embedding file...")
 def embed_file(file):
     file_content = file.read()
     file_path = f"./.cache/files/{file.name}"
@@ -21,7 +22,7 @@ def embed_file(file):
         chunk_size=600,
         chunk_overlap=100,
     )
-    loader = UnstructuredFileLoader("./files/chapter_one.txt")
+    loader = UnstructuredFileLoader(file_path)
     docs = loader.load_and_split(text_splitter=splitter)
     embeddings = OpenAIEmbeddings()
     cached_embeddings = CacheBackedEmbeddings.from_bytes_store(embeddings, cache_dir)
@@ -45,13 +46,7 @@ file = st.file_uploader(
 )
 
 if file:
-    st.write(file)
-    file_content = file.read()
-    file_path = f"./.cache/files/{file.name}"
-    st.write(file_content, file_path)
-    with open(file_path, "wb") as f:
-        f.write(file_content)
-    # retriever = embed_file(file)
-    # s = retriever.invoke("winston")
-    # s
+    retriever = embed_file(file)
+    s = retriever.invoke("winston")
+    s
     
