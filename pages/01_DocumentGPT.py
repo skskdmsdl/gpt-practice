@@ -30,6 +30,10 @@ def embed_file(file):
     retriever = vectorstore.as_retriever()
     return retriever
 
+def send_message(messages, role, save=True):
+    with st.chat_message(role):
+        st.markdown(messages)
+
 st.title("DocumentGPT")
 
 st.markdown(
@@ -47,6 +51,4 @@ file = st.file_uploader(
 
 if file:
     retriever = embed_file(file)
-    s = retriever.invoke("winston")
-    s
     
