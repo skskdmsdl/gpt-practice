@@ -36,6 +36,10 @@ def send_message(message, role, save=True):
     if save:
         st.session_state["messages"].append({"message": message, "role": role})
 
+def paint_history():
+    for message in st.session_state["messages"]:
+        send_message(message["message"], message["role"], save=False,)
+
 st.title("DocumentGPT")
 
 st.markdown(
@@ -56,11 +60,9 @@ with st.sidebar:
 
 if file:
     retriever = embed_file(file)
-
-    send_message("I'm ready! Ask away!", "ai")
-
+    send_message("I'm ready! Ask away!", "ai", save=False)
+    paint_history()
     message = st.chat_input("Ask anyting about your files")
-
     if message:
         send_message(message, "human")
     
