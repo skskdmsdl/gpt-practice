@@ -66,4 +66,6 @@ if file:
     if message:
         send_message(message, "human")
         send_message("lalala", "ai")
+else:
+    st.session_state["messages"] = []
     
