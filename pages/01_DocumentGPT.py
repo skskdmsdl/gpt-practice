@@ -65,6 +65,8 @@ if file:
     message = st.chat_input("Ask anyting about your files")
     if message:
         send_message(message, "human")
+        docs = retriever.invoke(message)
+        st.write(docs)
 else:
     st.session_state["messages"] = []
     
