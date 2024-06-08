@@ -67,6 +67,7 @@ if file:
         send_message(message, "human")
         docs = retriever.invoke(message)
         st.write(docs)
+        "\n\n".join(document.page_content for document in docs)
 else:
     st.session_state["messages"] = []
     
