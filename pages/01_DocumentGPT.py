@@ -1,3 +1,4 @@
+from langchain.prompts import ChatPromptTemplate
 from langchain.document_loaders import UnstructuredFileLoader
 from langchain.embeddings import CacheBackedEmbeddings, OpenAIEmbeddings
 from langchain.storage import LocalFileStore
@@ -39,6 +40,20 @@ def send_message(message, role, save=True):
 def paint_history():
     for message in st.session_state["messages"]:
         send_message(message["message"], message["role"], save=False,)
+
+prompt = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """
+            Answer the question using ONLY the following context. If you don't know the answer just say you don't know. DON'T make anything up.
+            
+            Context: {context}
+            """,
+        ),
+        ("human", "{question}"),
+    ]
+)
 
 st.title("DocumentGPT")
 
