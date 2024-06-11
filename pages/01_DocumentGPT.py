@@ -41,7 +41,7 @@ def paint_history():
     for message in st.session_state["messages"]:
         send_message(message["message"], message["role"], save=False,)
 
-prompt = ChatPromptTemplate.from_messages(
+template = ChatPromptTemplate.from_messages(
     [
         (
             "system",
@@ -82,6 +82,8 @@ if file:
         send_message(message, "human")
         docs = retriever.invoke(message)
         docs = "\n\n".join(document.page_content for document in docs)
+        prompt = template.format_message(context=docs, question=message)
+        st.write(prompt)
 else:
     st.session_state["messages"] = []
     
