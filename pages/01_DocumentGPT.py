@@ -80,7 +80,9 @@ if file:
     message = st.chat_input("Ask anyting about your files")
     if message:
         send_message(message, "human")
-        docs = retriever.invoke(message)
+        chain = {
+            "context": retriever
+        }
         docs = "\n\n".join(document.page_content for document in docs)
         prompt = template.format_message(context=docs, question=message)
         st.write(prompt)
