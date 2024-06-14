@@ -1,6 +1,7 @@
 from langchain.prompts import ChatPromptTemplate
 from langchain.document_loaders import UnstructuredFileLoader
 from langchain.embeddings import CacheBackedEmbeddings, OpenAIEmbeddings
+from langchain.schema.runnable import RunnableLambda, RunnablePassthrough
 from langchain.storage import LocalFileStore
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores.faiss import FAISS
@@ -40,6 +41,9 @@ def send_message(message, role, save=True):
 def paint_history():
     for message in st.session_state["messages"]:
         send_message(message["message"], message["role"], save=False,)
+
+def format_docs(docs):
+    return "\n\n".join(document.page_content for document in docs)
 
 template = ChatPromptTemplate.from_messages(
     [
@@ -81,9 +85,8 @@ if file:
     if message:
         send_message(message, "human")
         chain = {
-            "context": retriever | RunnableLamda()
+            "context": retriever | RunnableLambda(format_docs)
         }
-        docs = "\n\n".join(document.page_content for document in docs)
         prompt = template.format_message(context=docs, question=message)
         st.write(prompt)
 else:
