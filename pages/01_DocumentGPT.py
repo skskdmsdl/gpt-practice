@@ -5,11 +5,16 @@ from langchain.schema.runnable import RunnableLambda, RunnablePassthrough
 from langchain.storage import LocalFileStore
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores.faiss import FAISS
+from langchain.chat_models import ChatOpenAI
 import streamlit as st
 
 st.set_page_config(
     page_title="DocumentGPT",
     page_icon="🦠"
+)
+
+llm = ChatOpenAI(
+    temperature=0.1,
 )
 
 @st.cache_data(show_spinner="Embedding file...")
@@ -45,7 +50,7 @@ def paint_history():
 def format_docs(docs):
     return "\n\n".join(document.page_content for document in docs)
 
-template = ChatPromptTemplate.from_messages(
+prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
@@ -85,10 +90,10 @@ if file:
     if message:
         send_message(message, "human")
         chain = {
-            "context": retriever | RunnableLambda(format_docs)
-        }
-        prompt = template.format_message(context=docs, question=message)
-        st.write(prompt)
+            "context": retriever | RunnableLambda(format_docs),
+            "question": RunnablePassthrough()
+        } | prompt | llm
+
 else:
     st.session_state["messages"] = []
     
