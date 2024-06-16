@@ -93,6 +93,7 @@ if file:
             "context": retriever | RunnableLambda(format_docs),
             "question": RunnablePassthrough()
         } | prompt | llm
+        chain.invoke(message)
 
 else:
     st.session_state["messages"] = []
