@@ -89,10 +89,14 @@ if file:
     message = st.chat_input("Ask anyting about your files")
     if message:
         send_message(message, "human")
-        chain = {
-            "context": retriever | RunnableLambda(format_docs),
-            "question": RunnablePassthrough()
-        } | prompt | llm
+        chain = (
+            {
+                "context": retriever | RunnableLambda(format_docs),
+                "question": RunnablePassthrough(),
+            } 
+            | prompt 
+            | llm
+        )
         chain.invoke(message)
 
 else:
