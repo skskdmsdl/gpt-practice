@@ -97,7 +97,8 @@ if file:
             | prompt 
             | llm
         )
-        chain.invoke(message)
+        response = chain.invoke(message)
+        send_message(response.content, "ai")
 
 else:
     st.session_state["messages"] = []
