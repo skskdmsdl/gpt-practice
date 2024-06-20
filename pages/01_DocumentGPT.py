@@ -15,6 +15,7 @@ st.set_page_config(
 
 llm = ChatOpenAI(
     temperature=0.1,
+    streaming=True,
 )
 
 
@@ -112,4 +113,3 @@ if file:
 
 else:
     st.session_state["messages"] = []
-    
