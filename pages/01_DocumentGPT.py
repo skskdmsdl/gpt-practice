@@ -13,6 +13,13 @@ st.set_page_config(
     page_icon="🦠"
 )
 
+class ChatCallbackHandler(BaseCallbackHandler):
+    message = ""
+
+    def on_llm_start(self, *args, **kwargs):
+        self.message_box = st.empty()
+ 
+
 llm = ChatOpenAI(
     temperature=0.1,
     streaming=True,
