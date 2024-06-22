@@ -14,10 +14,10 @@ st.set_page_config(
 )
 
 class ChatCallbackHandler(BaseCallbackHandler):
-    message = ""
 
     def on_llm_start(self, *args, **kwargs):
-        self.message_box = st.empty()
+        with st.sidebar:
+            st.write("llm started")
  
 
 llm = ChatOpenAI(
