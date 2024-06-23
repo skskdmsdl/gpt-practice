@@ -18,13 +18,15 @@ class ChatCallbackHandler(BaseCallbackHandler):
     def on_llm_start(self, *args, **kwargs):
         with st.sidebar:
             st.write("llm started")
- 
+
+    def on_llm_end(self, *args, **kwargs):
+        with st.sidebar:
+            st.write("llm ended")
 
 llm = ChatOpenAI(
     temperature=0.1,
     streaming=True,
 )
-
 
 @st.cache_data(show_spinner="Embedding file...")
 def embed_file(file):
