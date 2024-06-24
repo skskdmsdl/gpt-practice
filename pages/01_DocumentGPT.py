@@ -29,6 +29,9 @@ class ChatCallbackHandler(BaseCallbackHandler):
 llm = ChatOpenAI(
     temperature=0.1,
     streaming=True,
+    callbacks=[
+        ChatCallbackHandler(),
+    ]
 )
 
 @st.cache_data(show_spinner="Embedding file...")
