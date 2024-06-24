@@ -23,6 +23,9 @@ class ChatCallbackHandler(BaseCallbackHandler):
         with st.sidebar:
             st.write("llm ended")
 
+    def on_llm_new_token(self, token, *args, **kwargs):
+        print(token)
+
 llm = ChatOpenAI(
     temperature=0.1,
     streaming=True,
